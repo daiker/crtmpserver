@@ -40,7 +40,7 @@ _VIDEO_AVC::~_VIDEO_AVC() {
 
 #define CHECK_BA_LIMITS(name,length) \
 if(ba.AvailableBits()<length) { \
-	FATAL("Unable to read `"name"` value. Not enough bits. Wanted: %u; Have: %u", \
+	FATAL("Unable to read %s value. Not enough bits. Wanted: %u; Have: %u",name, \
 		(uint32_t)length, ba.AvailableBits()); \
 	return false; \
 }
@@ -55,7 +55,7 @@ if(ba.AvailableBits()<length) { \
 { \
 	uint64_t ___value___=0; \
 	if(!ba.ReadExpGolomb(___value___)) { \
-		FATAL("Unable to read `"name"` value"); \
+        FATAL("Unable to read  %s value",name); \
 		return false; \
 	} \
 	v[name]=(type)___value___; \
@@ -463,10 +463,10 @@ bool _VIDEO_AVC::Deserialize(IOBuffer &src, _VIDEO_AVC &dest) {
 
 _VIDEO_AVC::operator string() {
 	string result;
-	result += format("_spsLength: %"PRIu16"\n", _spsLength);
-	result += format("_ppsLength: %"PRIu16"\n", _ppsLength);
-	result += format("_rate: %"PRIu32"\n", _rate);
-	result += format("WxH: %"PRIu32"x%"PRIu32, _width, _height);
+	result += format("_spsLength: %" PRIu16 "\n", _spsLength);
+	result += format("_ppsLength: %" PRIu16 "\n", _ppsLength);
+	result += format("_rate: %" PRIu32 "\n", _rate);
+	result += format("WxH: %" PRIu32 "x%" PRIu32, _width, _height);
 	return result;
 }
 
@@ -745,7 +745,7 @@ bool StreamCapabilities::Deserialize(string seekFilePath, StreamCapabilities &ca
 		return false;
 	}
 	if (length > 1024 * 1024) {
-		FATAL("Invalid stream capabilities length in file %s: %"PRIu32, STR(seekFilePath), length);
+		FATAL("Invalid stream capabilities length in file %s: %" PRIu32, STR(seekFilePath), length);
 		return false;
 	}
 
@@ -775,7 +775,7 @@ bool StreamCapabilities::Deserialize(IOBuffer &src, StreamCapabilities &capabili
 	}
 	uint64_t ver = ENTOHLLP(pBuffer);
 	if (ver != __STREAM_CAPABILITIES_VERSION) {
-		FATAL("Invalid stream capabilities version. Wanted: %"PRIu64"; Got: %"PRIu64,
+		FATAL("Invalid stream capabilities version. Wanted: %" PRIu64 "; Got: %" PRIu64,
 				__STREAM_CAPABILITIES_VERSION, ver);
 		return false;
 	}

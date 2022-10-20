@@ -5,8 +5,7 @@ FIND_PATH(OPENSSL_INCLUDE_PATH
 		${TOOLCHAIN_HEADER_PATH}
 		/opt/local/include
 		/sw/include
-		/usr/include
-		/usr/local/include
+		/usr/local/openssl/include
 		/usr/local/ssl/include
 		NO_DEFAULT_PATH)
 
@@ -28,14 +27,13 @@ FIND_LIBRARY(OPENSSL_LIBRARY_PATH
 		/usr/lib64
 		/usr/local/lib64
 		/lib/x86_64-linux-gnu
-		/usr/lib/x86_64-linux-gnu
+		#/usr/lib/x86_64-linux-gnu
 		/opt/local/lib64
 		/lib
 		/usr/lib
-		/usr/local/lib
 		/lib/i386-linux-gnu
 		/usr/lib/i386-linux-gnu
-		/usr/local/ssl/lib
+		/usr/local/openssl/lib
 		NO_DEFAULT_PATH)
 
 FIND_LIBRARY(CRYPTO_LIBRARY_PATH
@@ -51,13 +49,12 @@ FIND_LIBRARY(CRYPTO_LIBRARY_PATH
 		/usr/lib64
 		/usr/local/lib64
 		/lib/x86_64-linux-gnu
-		/usr/lib/x86_64-linux-gnu
+		#/usr/lib/x86_64-linux-gnu
 		/lib
 		/usr/lib
-		/usr/local/lib
 		/lib/i386-linux-gnu
 		/usr/lib/i386-linux-gnu
-		/usr/local/ssl/lib
+		/usr/local/openssl/lib
 		NO_DEFAULT_PATH)
 
 IF($ENV{COMPILE_STATIC} MATCHES "1")
@@ -73,13 +70,13 @@ IF($ENV{COMPILE_STATIC} MATCHES "1")
 			/usr/lib64
 			/usr/local/lib64
 			/lib/x86_64-linux-gnu
-			/usr/lib/x86_64-linux-gnu
+			#/usr/lib/x86_64-linux-gnu
 			/lib
 			/usr/lib
 			/usr/local/lib
 			/lib/i386-linux-gnu
 			/usr/lib/i386-linux-gnu
-			/usr/local/ssl/lib
+			/usr/local/openssl/lib
 			NO_DEFAULT_PATH)
 	SET(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES_OLD})
 ELSEIF($ENV{COMPILE_STATIC} MATCHES "1")

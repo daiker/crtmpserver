@@ -308,7 +308,7 @@ bool InboundTSProtocol::ProcessPacket(uint32_t packetHeader,
 		}
 		default:
 		{
-			WARN("PID type not implemented: %d. Pid number: %"PRIu16,
+			WARN("PID type not implemented: %d. Pid number: %" PRIu16,
 					pPIDDescriptor->type, pPIDDescriptor->pid);
 			return false;
 		}

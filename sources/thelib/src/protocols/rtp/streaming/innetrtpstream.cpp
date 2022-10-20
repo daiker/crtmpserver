@@ -165,9 +165,9 @@ bool InNetRTPStream::FeedData(uint8_t *pData, uint32_t dataLength,
 	switch (_rtcpPresence) {
 		case RTCP_PRESENCE_UNKNOWN:
 		{
-			DEBUG_RTCP_PRESENCE("RTCP_PRESENCE_UNKNOWN: %"PRIz"u", (time(NULL) - _rtcpDetectionStart));
+			DEBUG_RTCP_PRESENCE("RTCP_PRESENCE_UNKNOWN: %" PRIz "u", (time(NULL) - _rtcpDetectionStart));
 			if (_rtcpDetectionInterval == 0) {
-				WARN("RTCP disabled on stream %s(%"PRIu32") with name %s. A/V drifting may occur over long periods of time",
+				WARN("RTCP disabled on stream %s(%" PRIu32 ") with name %s. A/V drifting may occur over long periods of time",
 						STR(tagToString(GetType())), GetUniqueId(), STR(GetName()));
 				_rtcpPresence = RTCP_PRESENCE_ABSENT;
 				return true;
@@ -177,7 +177,7 @@ bool InNetRTPStream::FeedData(uint8_t *pData, uint32_t dataLength,
 				return true;
 			}
 			if ((time(NULL) - _rtcpDetectionStart) > _rtcpDetectionInterval) {
-				WARN("Stream %s(%"PRIu32") with name %s doesn't have RTCP. A/V drifting may occur over long periods of time",
+				WARN("Stream %s(%" PRIu32 ") with name %s doesn't have RTCP. A/V drifting may occur over long periods of time",
 						STR(tagToString(GetType())), GetUniqueId(), STR(GetName()));
 				_rtcpPresence = RTCP_PRESENCE_ABSENT;
 				return true;
@@ -199,7 +199,7 @@ bool InNetRTPStream::FeedData(uint8_t *pData, uint32_t dataLength,
 				videoRTCPPresent = true;
 			}
 			if (audioRTCPPresent && videoRTCPPresent) {
-				DEBUG_RTCP_PRESENCE("RTCP available on stream %s(%"PRIu32") with name %s.",
+				DEBUG_RTCP_PRESENCE("RTCP available on stream %s(%" PRIu32 ") with name %s.",
 						STR(tagToString(GetType())), GetUniqueId(), STR(GetName()));
 				_rtcpPresence = RTCP_PRESENCE_AVAILABLE;
 			}
@@ -225,7 +225,7 @@ bool InNetRTPStream::FeedData(uint8_t *pData, uint32_t dataLength,
 		}
 		default:
 		{
-			ASSERT("Invalid _rtcpPresence: %"PRIu8, _rtcpPresence);
+			ASSERT("Invalid _rtcpPresence: %" PRIu8, _rtcpPresence);
 			return false;
 		}
 	}
@@ -293,7 +293,7 @@ bool InNetRTPStream::FeedVideoData(uint8_t *pData, uint32_t dataLength,
 		return true;
 	} else {
 		if ((uint16_t) (_videoSequence + 1) != (uint16_t) GET_RTP_SEQ(rtpHeader)) {
-			WARN("Missing video packet. Wanted: %"PRIu16"; got: %"PRIu16" on stream: %s",
+			WARN("Missing video packet. Wanted: %" PRIu16 "; got: %" PRIu16 " on stream: %s",
 					(uint16_t) (_videoSequence + 1),
 					(uint16_t) GET_RTP_SEQ(rtpHeader),
 					STR(GetName()));
@@ -391,7 +391,7 @@ bool InNetRTPStream::FeedAudioData(uint8_t *pData, uint32_t dataLength,
 		return true;
 	} else {
 		if ((uint16_t) (_audioSequence + 1) != (uint16_t) GET_RTP_SEQ(rtpHeader)) {
-			WARN("Missing audio packet. Wanted: %"PRIu16"; got: %"PRIu16" on stream: %s",
+			WARN("Missing audio packet. Wanted: %" PRIu16 "; got: %" PRIu16 " on stream: %s",
 					(uint16_t) (_audioSequence + 1),
 					(uint16_t) GET_RTP_SEQ(rtpHeader),
 					STR(GetName()));
@@ -406,7 +406,7 @@ bool InNetRTPStream::FeedAudioData(uint8_t *pData, uint32_t dataLength,
 	//1. Compute chunks count
 	uint16_t chunksCount = ENTOHSP(pData);
 	if ((chunksCount % 16) != 0) {
-		FATAL("Invalid AU headers length: %"PRIx16, chunksCount);
+		FATAL("Invalid AU headers length: %" PRIx16, chunksCount);
 		return false;
 	}
 	chunksCount = chunksCount / 16;
@@ -424,7 +424,7 @@ bool InNetRTPStream::FeedAudioData(uint8_t *pData, uint32_t dataLength,
 		}
 		ts = (double) (rtpTs + i * 1024) / (double) _capabilities.aac._sampleRate * 1000.00;
 		if ((cursor + chunkSize) > dataLength) {
-			FATAL("Unable to feed data: cursor: %"PRIu32"; chunkSize: %"PRIu16"; dataLength: %"PRIu32"; chunksCount: %"PRIu16,
+			FATAL("Unable to feed data: cursor: %" PRIu32 "; chunkSize: %" PRIu16 "; dataLength: %" PRIu32 "; chunksCount: %" PRIu16 ,
 					cursor, chunkSize, dataLength, chunksCount);
 			return false;
 		}

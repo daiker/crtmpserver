@@ -60,12 +60,12 @@ bool NATTraversalProtocol::SignalInputData(IOBuffer &buffer, sockaddr_in *pPeerA
 	}
 	string ipAddress = inet_ntoa(_pOutboundAddress->sin_addr);
 	if (_pOutboundAddress->sin_port == pPeerAddress->sin_port) {
-		INFO("The client has public endpoint: %s:%"PRIu16,
+		INFO("The client has public endpoint: %s:%" PRIu16,
 				STR(ipAddress),
 				ENTOHS(_pOutboundAddress->sin_port));
 	} else {
 
-		INFO("The client is behind firewall: %s:%"PRIu16" -> %s:%"PRIu16,
+		INFO("The client is behind firewall: %s:%" PRIu16 " -> %s:%" PRIu16,
 				STR(ipAddress),
 				ENTOHS(_pOutboundAddress->sin_port),
 				STR(ipAddress),
